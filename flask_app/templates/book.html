@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Book detail </title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-9">
+                    <h1>
+                        {{current_book.title}}
+                    </h1>
+                </div>
+                <div class="col-3">
+                    <form action="/books" method="GET">
+                        <button type="submit" class="btn btn-secondary">
+                            Back to the shelves
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <h2>
+                    {{current_book.user.name}} read {{current_book.title}} by {{current_book.author}}
+                </h2>
+            </div>
+            <div class="row">
+                <h3>
+                    Here are {{current_book.user.name}}'s' thoughts
+                </h3>
+            </div>
+            <div class="row">
+                <p>
+                    {{current_book.thoughts}}
+                </p>
+            </div>
+            <div class="row">
+                {% if current_book.user.id == session["user_id"]: %}
+                <form action="/book/{{current_book.id}}/edit" method="GET">
+                    <button type="submit" class="btn btn-warning">
+                        Edit
+                    </button>
+                </form>
+                <form action="/book/remove/{{current_book.id}}" method="POST">
+                    <button type="submit" class="btn btn-danger">
+                        Delete
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
